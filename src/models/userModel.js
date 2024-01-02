@@ -17,7 +17,7 @@ const userModel = db.define("User",{
         allowNull: false,
         unique: true
     },
-    PASSWORD:{
+    password:{
         type: STRING,
         allowNull: false
     }

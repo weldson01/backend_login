@@ -1,13 +1,19 @@
+import userModel from "../models/userModel";
 
 class userController{
-    async show(){
-        // TODO mostra todos os usuários
+    async show(req,res){
+        const users = await userModel.findAll();
+        return res.json(users);
     }
     async findOne(){
         // TODO procura por apenas um usuário
     }
-    async createOne(){
-        // TODO cria um usuário no banco de dados
+    async createOne(req, res){
+        const {name, email, password} = req.body;
+
+        const result = await userModel.create({name,email,password});
+
+        return res.json(result);
     }
     async updateOne(){
         // TODO atualiza o usuário no banco de dados
