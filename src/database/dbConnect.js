@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize({
+const db = new Sequelize({
     dialect: "mysql",
     host: "localhost",
     port: 3306,
@@ -9,4 +9,4 @@ const sequelize = new Sequelize({
     database: "login_system",
 })
 
-export default sequelize;
+export default db;
