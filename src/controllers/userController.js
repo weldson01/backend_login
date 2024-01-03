@@ -15,8 +15,18 @@ class userController{
 
         return res.json(result);
     }
-    async updateOne(){
-        // TODO atualiza o usuário no banco de dados
+    async updateOne(req,res){
+        const {name, email, password} = req.body;
+        const userAux =  await userModel.findOne({email});
+
+        try{
+            const result = await userAux.update({name,email,password});
+            return res.status(200).json(result);
+
+        }catch(err){
+            return res.json(err);
+        }
+
     }
     async deleteOne(){
         // TODO deleta o usuário do banco de dados

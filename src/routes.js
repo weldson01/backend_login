@@ -13,6 +13,7 @@ routes.get("/users", (req,res)=>{
     userController.show(req,res);
 });
 
-routes.post("/users", userController.createOne)
+routes.post("/users", userController.createOne);
+routes.put("/users", userController.updateOne);
 
 export default routes;
