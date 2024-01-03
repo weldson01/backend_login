@@ -15,5 +15,6 @@ routes.get("/users", (req,res)=>{
 
 routes.post("/users", userController.createOne);
 routes.put("/users", userController.updateOne);
+routes.delete("/users", userController.deleteOne);
 
 export default routes;

@@ -12,7 +12,7 @@ class userController{
         const {name, email, password} = req.body;
 
         const result = await userModel.create({name,email,password});
-
+        // TODO corrigir bug quando coloca o mesmo email 
         return res.json(result);
     }
     async updateOne(req,res){
@@ -28,8 +28,19 @@ class userController{
         }
 
     }
-    async deleteOne(){
-        // TODO deleta o usuário do banco de dados
+    async deleteOne(req,res){
+        const {id} = req.body;
+        console.log(id)
+        try {
+            await userModel.destroy({
+                where:{
+                    id:id
+                }
+            });
+            return res.json({message: "The user was deleted."});
+        }catch(err){
+            return res.json(err);
+        }
     }
 }
 
