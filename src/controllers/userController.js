@@ -5,8 +5,16 @@ class userController{
         const users = await userModel.findAll();
         return res.json(users);
     }
-    async findOne(){
-        // TODO procura por apenas um usuário
+    async findOne(req,res){
+        const {email} = req.params;
+        console.log(email);
+        try{
+        const userFinded = await userModel.findOne({email});
+        return res.status(200).json(userFinded);
+        }catch(err){
+            return res.status(500).json(err);
+        }
+    
     }
     async createOne(req, res){
         const {name, email, password} = req.body;

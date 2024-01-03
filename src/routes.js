@@ -9,10 +9,9 @@ routes.get("/", (req,res)=>{
 })
 
 // rotas do usuário
-routes.get("/users", (req,res)=>{
-    userController.show(req,res);
-});
+routes.get("/users", userController.show);
 
+routes.get("/users/:email", userController.findOne);
 routes.post("/users", userController.createOne);
 routes.put("/users", userController.updateOne);
 routes.delete("/users", userController.deleteOne);
