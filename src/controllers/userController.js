@@ -21,10 +21,19 @@ class userController{
         const {name, email, password} = req.body;
 
         const passwordEcrypted = await hashSync(password, 12);
+        const userTest = await userModel.findOne({
+            where:{
+                email:email
+            }
+        });
+        if(!userTest){
+            const result = await userModel.create({name,email,password:passwordEcrypted});
+            return res.json(result);
+        }else{
+            return res.status(500).json({message: "The email is used already"});
+        }
 
-        const result = await userModel.create({name,email,password:passwordEcrypted});
-        // TODO corrigir bug quando coloca o mesmo email 
-        return res.json(result);
+        
     }
     async updateOne(req,res){
         const {name, email, password} = req.body;
