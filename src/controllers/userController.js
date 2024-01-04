@@ -1,4 +1,5 @@
 import userModel from "../models/userModel";
+import { hashSync } from "bcrypt";
 
 class userController{
     async show(req,res){
@@ -19,7 +20,9 @@ class userController{
     async createOne(req, res){
         const {name, email, password} = req.body;
 
-        const result = await userModel.create({name,email,password});
+        const passwordEcrypted = await hashSync(password, 12);
+
+        const result = await userModel.create({name,email,password:passwordEcrypted});
         // TODO corrigir bug quando coloca o mesmo email 
         return res.json(result);
     }
