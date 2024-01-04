@@ -8,6 +8,11 @@ routes.get("/", (req,res)=>{
     res.send("The server is on!");
 })
 
+// login
+routes.post("/login", userController.login);
+
+
+
 // rotas do usuário
 routes.get("/users", userController.show);
 

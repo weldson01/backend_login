@@ -1,5 +1,6 @@
 import userModel from "../models/userModel";
-import { hashSync } from "bcrypt";
+import { compare, hashSync } from "bcrypt";
+import jwt from "jsonwebtoken";
 
 class userController{
     async show(req,res){
@@ -61,6 +62,29 @@ class userController{
         }catch(err){
             return res.json(err);
         }
+    }
+
+    async login(req,res){
+        const {email, password} = req.body;
+        const passwordHash = await hashSync(password, 12);
+        const userAux = await userModel.findOne({
+            where:{
+                email:email
+            }
+        })
+        if(userAux){
+            const validatorHash = await compare(password, userAux.password)
+
+            if(validatorHash){
+                const token = await jwt.sign({id: userAux.id}, process.env.JWT_SECRET,{
+                    expiresIn: 300
+                }) 
+                return res.json(token);
+            }
+        }
+
+        return res.json({message: "We can't find the user"});
+        
     }
 }
 
