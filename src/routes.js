@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userController from "./controllers/userController";
+import authorization from "./middlewares/authorization";
 
 const routes = Router();
 
@@ -14,7 +15,7 @@ routes.post("/login", userController.login);
 
 
 // rotas do usuário
-routes.get("/users", userController.show);
+routes.get("/users", authorization, userController.show);
 
 routes.get("/users/:email", userController.findOne);
 routes.post("/users", userController.createOne);
