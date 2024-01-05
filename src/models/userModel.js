@@ -1,5 +1,6 @@
 import { INTEGER, STRING } from "sequelize";
 import db from "../database/dbConnect";
+import postModel from "./postModel";
 
 const userModel = db.define("User",{
     id:{
@@ -22,5 +23,8 @@ const userModel = db.define("User",{
         allowNull: false
     }
 })
+
+userModel.hasMany(postModel);
+postModel.belongsTo(userModel);
 
 export default userModel;

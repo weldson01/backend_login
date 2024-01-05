@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userController from "./controllers/userController";
 import authorization from "./middlewares/authorization";
+import postController from "./controllers/postController";
 
 const routes = Router();
 
@@ -22,4 +23,9 @@ routes.post("/users", userController.createOne);
 routes.put("/users", userController.updateOne);
 routes.delete("/users", userController.deleteOne);
 
+
+// rotas de posts
+
+routes.get("/posts/:userId", postController.showUserPost)
+routes.post("/posts", postController.create);
 export default routes;
