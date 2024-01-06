@@ -18,6 +18,9 @@ const userModel = db.define("User",{
         allowNull: false,
         unique: true
     },
+    typeAccount:{
+        type: STRING,
+    },
     password:{
         type: STRING,
         allowNull: false

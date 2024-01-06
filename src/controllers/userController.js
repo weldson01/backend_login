@@ -19,7 +19,8 @@ class userController{
     
     }
     async createOne(req, res){
-        const {name, email, password} = req.body;
+        const {name, email, password, typeAccount} = req.body;
+
 
         const passwordEcrypted = await hashSync(password, 12);
         const userTest = await userModel.findOne({
@@ -28,7 +29,7 @@ class userController{
             }
         });
         if(!userTest){
-            const result = await userModel.create({name,email,password:passwordEcrypted});
+            const result = await userModel.create({name,email,password:passwordEcrypted, typeAccount: typeAccount});
             return res.json(result);
         }else{
             return res.status(500).json({message: "The email is used already"});
@@ -51,7 +52,6 @@ class userController{
     }
     async deleteOne(req,res){
         const {id} = req.body;
-        console.log(id)
         try {
             await userModel.destroy({
                 where:{
@@ -66,7 +66,6 @@ class userController{
 
     async login(req,res){
         const {email, password} = req.body;
-        const passwordHash = await hashSync(password, 12);
         const userAux = await userModel.findOne({
             where:{
                 email:email
@@ -76,7 +75,7 @@ class userController{
             const validatorHash = await compare(password, userAux.password)
 
             if(validatorHash){
-                const token = await jwt.sign({id: userAux.id}, process.env.JWT_SECRET,{
+                const token = await jwt.sign({id: userAux.id, userType:userAux.typeAccount}, process.env.JWT_SECRET,{
                     expiresIn: "5000s"
                 }) 
                 return res.json({token, id:userAux.id});
