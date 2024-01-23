@@ -76,9 +76,9 @@ class userController{
 
             if(validatorHash){
                 const token = await jwt.sign({id: userAux.id, userType:userAux.typeAccount}, process.env.JWT_SECRET,{
-                    expiresIn: "5000s"
+                    expiresIn: "2629743"
                 }) 
-                return res.json({token, id:userAux.id});
+                return res.status(200).json({token, id:userAux.id, name:userAux.name, email:userAux.email,  typeAccount: userAux.typeAccount});
             }
         }
 

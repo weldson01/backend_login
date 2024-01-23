@@ -1,4 +1,4 @@
-import { INTEGER, STRING } from "sequelize";
+import { INTEGER, STRING, TEXT } from "sequelize";
 import db from "../database/dbConnect";
 const postModel = db.define("post", {
     id:{
@@ -12,7 +12,7 @@ const postModel = db.define("post", {
         allowNull: false,
     },
     body:{
-        type: STRING,
+        type: TEXT,
         allowNull: false
     }
 })

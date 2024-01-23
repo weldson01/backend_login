@@ -27,6 +27,9 @@ routes.delete("/users", authorizationAdmin, userController.deleteOne);
 
 // rotas de posts
 
-routes.get("/posts/:userId",authorization, postController.showUserPost)
+routes.get("/posts", postController.showAll);
+// routes.get("/post/:userId",authorization, postController.showUserPost);
 routes.post("/posts",authorization, postController.create);
+// route update a post
+routes.put("/posts/:id", postController.updateOnePost);
 export default routes;
